@@ -7,10 +7,13 @@ import { bindActionCreators } from 'redux';
 import {Button, Container, ButtonDone} from '../styles/mainStyle'
 import Pagination from '../components/Pagination'
 import {Link} from 'react-router-dom'
-
+import axios from '../axiosInstance'
+import ErrorHandler from '../hoc/errorHandler'
+import {getAllTodos} from '../actions/TodoAction'
 
 interface IProps {
   todos: ITodo[]
+  todo: any
   selectTodo: selectTodoAction
 }
 interface IState {
@@ -29,6 +32,9 @@ class TodoList extends React.Component<IProps,IState> {
     this.setState({currentPage: number})
   }
 
+  componentDidMount(){
+    getAllTodos()
+  }
 
   render() {
     const lastTaskIndex = this.state.currentPage * this.state.tasksPerPage
@@ -44,7 +50,7 @@ class TodoList extends React.Component<IProps,IState> {
         {
           currentTasks.map(todo => {
             return (
-              <div key={todo.id} onClick={()=>this.props.selectTodo(todo)}>
+              <div key={todo.id} onClick={()=>this.props.selectTodo(todo.id)}>
                 {todo.completed ? 
                 <ButtonDone>{todo.id}</ButtonDone>
                 :
@@ -72,4 +78,4 @@ const mapDispatchToProps = (dispatch: any) => {
     return bindActionCreators({ selectTodo: selectTodo}, dispatch)
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(TodoList)
+export default connect(mapStateToProps,mapDispatchToProps)(ErrorHandler(TodoList,axios))

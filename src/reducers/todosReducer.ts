@@ -15,19 +15,14 @@ export interface ITodo {
 export interface ITodosState {
   todos: ITodo[];
   id: number;
-  todo: ITodo;
+  todo: any
 }
 
 
 const initialTodoState: ITodosState = {
   todos: [],
   id: 0,
-  todo: {
-    userId: 1,
-    id: 0,
-    title: '',
-    completed: false
-  }
+  todo: null
 };
 
 export const todosReducer: Reducer<ITodosState, TodosAction> = (
@@ -62,6 +57,19 @@ export const todosReducer: Reducer<ITodosState, TodosAction> = (
           completed: false
         }
         ]
+    }
+  }
+  case TodoActionTypes.SELECT: {
+    return {
+      ...state,
+      todo: state.todos.find((todo,index)=> index+1 === action.id ? todo : null)
+    }
+  }
+  case TodoActionTypes.CHANGE: {
+    return {
+      ...state, todo: state.todos.find((todo,index) =>
+      index + 1 === action.id ? todo.title = action.title : null
+      ) 
     }
   }
     default:

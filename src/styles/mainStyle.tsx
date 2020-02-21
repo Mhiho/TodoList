@@ -54,4 +54,11 @@ height: 20vh;
 `
 export const Title = styled.h4`
 `
-
+export const Light = styled.div`
+background: lightyellow;
+color: black;
+`
+export const Dark = styled.div`
+background: black;
+color: lightyellow;
+`

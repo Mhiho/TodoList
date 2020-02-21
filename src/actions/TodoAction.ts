@@ -1,27 +1,31 @@
 import { ActionCreator, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import axios from 'axios';
 import { ITodo, ITodosState } from '../reducers/todosReducer';
-
+import axios from '../axiosInstance'
 
 export enum TodoActionTypes {
   FETCH_TODOS = 'FETCH_TODOS',
   SELECT = 'SELECT',
   TOGGLE = 'TOGGLE',
   DELETE = 'DELETE',
-  ADD = 'ADD'
+  ADD = 'ADD',
+  CHANGE = 'CHANGE'
 }
 
 
 export interface ITodoGetAllAction {
   type: TodoActionTypes.FETCH_TODOS
   todos: ITodo[]
+  todo: any
+  id: number
 }
 
 export interface ITodoGetOneAction {
     type: TodoActionTypes.SELECT
-    todo: ITodo | any
+    id: number,
+    todo: any
   }
+  
 export interface IToggleTodoAction {
   type: TodoActionTypes.TOGGLE
   id: number
@@ -35,8 +39,16 @@ export interface IAddTodoAction {
   type: TodoActionTypes.ADD
   title: string
 }
+export interface IChangeTodoAction {
+  type: TodoActionTypes.CHANGE
+  id: number,
+  title: string
+}
+export type TodosAction = ITodoGetAllAction |
+                          ITodoGetOneAction | IToggleTodoAction | 
+                          IDeleteTodoAction | IAddTodoAction | IChangeTodoAction
 
-export type TodosAction = ITodoGetAllAction | ITodoGetOneAction | IToggleTodoAction | IDeleteTodoAction | IAddTodoAction
+
 
 export const getAllTodos: ActionCreator<
   ThunkAction<Promise<any>, ITodosState, null, ITodoGetAllAction>
@@ -55,10 +67,10 @@ export const getAllTodos: ActionCreator<
 };
 
 
-export const selectTodo = (todo: ITodo) => {
+export const selectTodo = (id: number) => {
        return {
            type: TodoActionTypes.SELECT,
-           todo: todo
+           id: id
        }
         
 }
@@ -90,3 +102,12 @@ export const addTodo = (title: string) => {
 }
 
 export type addTodoAction = typeof addTodo
+
+export const changeTodo = (id:number, title: string) => {
+  return{
+    type: TodoActionTypes.CHANGE,
+    id: id,
+    title: title
+  }
+}
+export type changeTodoAction = typeof changeTodo
