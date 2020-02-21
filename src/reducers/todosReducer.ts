@@ -39,12 +39,14 @@ export const todosReducer: Reducer<ITodosState, TodosAction> = (
     }
     case TodoActionTypes.DELETE: {
       const todoId = action.id;
-      return {...state, todos: state.todos.filter(todo => todo.id !== todoId) }
+      return { ...state, todos: state.todos.filter(todo => todo.id !== todoId) }
     }
     case TodoActionTypes.TOGGLE: {
-      return {...state, todos: state.todos.map(todo =>
-        todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
-      )  }
+      return {
+        ...state, todos: state.todos.map(todo =>
+          todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
+        )
+      }
     }
     case TodoActionTypes.ADD: {
       console.log(action.title)
@@ -52,26 +54,26 @@ export const todosReducer: Reducer<ITodosState, TodosAction> = (
         ...state,
         todos: [...state.todos, {
           userId: 1,
-          id: state.todos.length+1,
+          id: state.todos.length + 1,
           title: action.title,
           completed: false
         }
         ]
+      }
     }
-  }
-  case TodoActionTypes.SELECT: {
-    return {
-      ...state,
-      todo: state.todos.find((todo,index)=> index+1 === action.id ? todo : null)
+    case TodoActionTypes.SELECT: {
+      return {
+        ...state,
+        todo: state.todos.find((todo) => todo.id === action.id ? todo : null)
+      }
     }
-  }
-  case TodoActionTypes.CHANGE: {
-    return {
-      ...state, todo: state.todos.find((todo,index) =>
-      index + 1 === action.id ? todo.title = action.title : null
-      ) 
+    case TodoActionTypes.CHANGE: {
+      return {
+        ...state, todo: state.todos.find((todo) =>
+          todo.id === action.id ? todo.title = action.title : null
+        )
+      }
     }
-  }
     default:
       return state;
   }

@@ -21,6 +21,7 @@ const initialTodoState: IActiveTodoState = {
         
 // }
 
+//Zostawiłem ten reducer żeby był jakiś ślad dawnej konstrukcji
 
 
 

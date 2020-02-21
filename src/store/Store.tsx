@@ -8,13 +8,13 @@ import { reducer as formReducer } from 'redux-form'
   export interface IAppState {
       todosState: ITodosState
       // activeTodoState: IActiveTodoState
-      form: any
+      // form: any
   }
  
   const rootReducer = combineReducers<IAppState>({
       todosState: todosReducer,
       // activeTodoState: selectTodoReducer,
-      form: formReducer
+      // form: formReducer
   })
 
 

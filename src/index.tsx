@@ -20,7 +20,7 @@ const Root: React.SFC<IProps> = props => {
     );
   };
   const store = configureStore();
-  store.dispatch(getAllTodos());
+  // store.dispatch(getAllTodos());
 ReactDOM.render(<Root store={store} />, document.getElementById(
     'root'
   ) as HTMLElement);

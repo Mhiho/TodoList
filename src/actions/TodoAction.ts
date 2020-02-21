@@ -21,11 +21,11 @@ export interface ITodoGetAllAction {
 }
 
 export interface ITodoGetOneAction {
-    type: TodoActionTypes.SELECT
-    id: number,
-    todo: any
-  }
-  
+  type: TodoActionTypes.SELECT
+  id: number,
+  todo: any
+}
+
 export interface IToggleTodoAction {
   type: TodoActionTypes.TOGGLE
   id: number
@@ -45,8 +45,8 @@ export interface IChangeTodoAction {
   title: string
 }
 export type TodosAction = ITodoGetAllAction |
-                          ITodoGetOneAction | IToggleTodoAction | 
-                          IDeleteTodoAction | IAddTodoAction | IChangeTodoAction
+  ITodoGetOneAction | IToggleTodoAction |
+  IDeleteTodoAction | IAddTodoAction | IChangeTodoAction
 
 
 
@@ -66,13 +66,14 @@ export const getAllTodos: ActionCreator<
   };
 };
 
+export type getAllTodosAction = typeof getAllTodos
 
 export const selectTodo = (id: number) => {
-       return {
-           type: TodoActionTypes.SELECT,
-           id: id
-       }
-        
+  return {
+    type: TodoActionTypes.SELECT,
+    id: id
+  }
+
 }
 export type selectTodoAction = typeof selectTodo
 
@@ -103,8 +104,8 @@ export const addTodo = (title: string) => {
 
 export type addTodoAction = typeof addTodo
 
-export const changeTodo = (id:number, title: string) => {
-  return{
+export const changeTodo = (id: number, title: string) => {
+  return {
     type: TodoActionTypes.CHANGE,
     id: id,
     title: title
