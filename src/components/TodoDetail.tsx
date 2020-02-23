@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { IAppState } from "../store/Store";
 import { Title, TodoContainer } from "../styles/mainStyle";
 import { bindActionCreators } from "redux";
+import {ITodo} from '../reducers/todosReducer'
+
 import {
   toggleTodo,
   toggleTodoAction,
@@ -18,6 +20,7 @@ interface IProps {
   toggleTodo: toggleTodoAction;
   deleteTodo: deleteTodoAction;
   changeTodo: changeTodoAction;
+  todos: ITodo[]
 }
 
 interface IState {
@@ -47,13 +50,14 @@ class TodoDetail extends React.Component<IProps, IState> {
         </TodoContainer>
       );
     }
+    let todo = this.props.todos.filter(todo=> todo.id === this.props.todo.id)
     return (
       <Fragment>
         <TodoContainer>
           <Title>
-            {!this.props.todo
+            {todo[0] === undefined
               ? ""
-              : `Treść zadania ${this.props.todo.id}: ` + this.props.todo.title}
+              : `Treść zadania` + todo[0] !== undefined ? todo[0].id + `: ` + todo[0].title : null}
           </Title>
         </TodoContainer>
         <TodoContainer>
@@ -87,7 +91,8 @@ class TodoDetail extends React.Component<IProps, IState> {
 
 const mapStateToProps = (state: IAppState) => {
   return {
-    todo: state.todosState.todo
+    todo: state.todosState.todo,
+    todos: state.todosState.todos
   };
 };
 const mapDispatchToProps = (dispatch: any) => {

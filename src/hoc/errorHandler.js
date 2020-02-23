@@ -33,7 +33,7 @@ const errorHandler = ( WrappedComponent, axios) => {
               <div>
                   <div>
                     
-                      {this.state.error != null ? (<Error>`Coś poszło nie tak: ${this.state.error.message}  `</Error>) : null}
+                      {this.state.error != null ? (<Error>`Coś poszło nie tak: {this.state.error.message}  `</Error>) : null}
                   </div>
                   <WrappedComponent {...this.props} />
               </div>
